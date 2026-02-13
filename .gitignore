@@ -27,3 +27,6 @@ desktop.ini
 
 # Logs
 *.log
+
+# External repos (install separately)
+OmniParser/
