@@ -1,32 +1,4 @@
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-env/
-venv/
-ENV/
-
-# Screenshots and temporary files
-*.png
-!references/*.png
-screenshots/
-temp/
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# OS
-.DS_Store
-Thumbs.db
-desktop.ini
-
-# Logs
-*.log
-
-# External repos (install separately)
-OmniParser/
+models/
+*.json
+nul
+temp_screen.png

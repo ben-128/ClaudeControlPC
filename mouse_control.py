@@ -25,11 +25,24 @@ def move_relative(x, y, duration=0.5):
     print(f"Moving mouse by ({x}, {y})")
     pyautogui.move(x, y, duration=duration)
 
-def click(x=None, y=None, button='left', clicks=1):
-    """Click at position (or current position if None)"""
+def click(x=None, y=None, button='left', clicks=1, move_duration=0.5, click_delay=0.25):
+    """
+    Click at position (or current position if None)
+
+    Args:
+        x, y: Target coordinates (None = current position)
+        button: 'left', 'right', or 'middle'
+        clicks: Number of clicks (1=single, 2=double)
+        move_duration: Time in seconds for smooth movement (default 0.5s)
+        click_delay: Delay in seconds between arrival and click (default 0.25s)
+    """
     if x is not None and y is not None:
-        print(f"Clicking {button} button at ({x}, {y})")
-        pyautogui.click(x, y, button=button, clicks=clicks)
+        print(f"Moving to ({x}, {y}) smoothly...")
+        pyautogui.moveTo(x, y, duration=move_duration)
+        print(f"Waiting {click_delay}s before click...")
+        time.sleep(click_delay)
+        print(f"Clicking {button} button")
+        pyautogui.click(button=button, clicks=clicks)
     else:
         print(f"Clicking {button} button at current position")
         pyautogui.click(button=button, clicks=clicks)
@@ -51,7 +64,8 @@ if __name__ == "__main__":
         print("Usage:")
         print("  py mouse_control.py position")
         print("  py mouse_control.py move X Y [duration]")
-        print("  py mouse_control.py click [X Y] [left|right|middle]")
+        print("  py mouse_control.py click [X Y] [button] [move_duration] [click_delay]")
+        print("    - Smooth movement (default 0.5s) + delay before click (default 0.25s)")
         print("  py mouse_control.py doubleclick X Y")
         print("  py mouse_control.py drag X Y [duration]")
         print("  py mouse_control.py scroll AMOUNT [X Y]")
@@ -70,8 +84,10 @@ if __name__ == "__main__":
     elif command == "click":
         if len(sys.argv) >= 4 and sys.argv[2].isdigit():
             x, y = int(sys.argv[2]), int(sys.argv[3])
-            button = sys.argv[4] if len(sys.argv) > 4 else 'left'
-            click(x, y, button=button)
+            button = sys.argv[4] if len(sys.argv) > 4 and not sys.argv[4].replace('.','').isdigit() else 'left'
+            move_duration = float(sys.argv[5]) if len(sys.argv) > 5 else 0.5
+            click_delay = float(sys.argv[6]) if len(sys.argv) > 6 else 0.25
+            click(x, y, button=button, move_duration=move_duration, click_delay=click_delay)
         else:
             button = sys.argv[2] if len(sys.argv) > 2 else 'left'
             click(button=button)
