@@ -1,6 +1,8 @@
 # Claude PC Control
 
-Système d'automation GUI pour permettre à Claude de contrôler votre PC via des scripts Python.
+Système d'automation GUI permettant à Claude de contrôler votre PC avec **précision absolue** via un système de grille intelligent.
+
+> **v2.0** - Grid system + OmniParser integration + Nettoyage complet
 
 ## Installation
 
